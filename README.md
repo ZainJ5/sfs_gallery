@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SFS Gallery
 
-## Getting Started
+San Francisco Street Gallery — a Next.js 16 (App Router) rebuild of the WordPress site, with a self-hosted admin CMS backed by MongoDB.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, React 19) + **Tailwind v4**
+- **MongoDB** via Mongoose
+- **Auth**: JWT session in an httpOnly cookie (`jose` + `bcryptjs`)
+- **Media**: uploaded to disk under `public/uploads/` (served by Next in dev, NGINX in production)
+
+## Prerequisites
+
+- Node.js **20.9+** (22 recommended)
+- A running **MongoDB** instance
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local     # then edit values (see below)
+npm run seed-admin             # creates the first admin from .env.local
+npm run dev                    # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment (`.env.local`)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+| Var | Purpose |
+|-----|---------|
+| `MONGODB_URI` | MongoDB connection string |
+| `JWT_SECRET` | Long random string for signing admin sessions |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | First admin account (used by `npm run seed-admin`) |
+| `UPLOAD_DIR` | Where uploads are written (default `public/uploads`) |
+| `NEXT_PUBLIC_UPLOAD_BASE` | Public URL base for uploads (default `/uploads`) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Admin
 
-## Learn More
+- Sign in at **`/admin/login`**.
+- Sections: Analytics, Artists, Art, Events, Blog, Sliders, Messages, User Data, Settings.
+- Everything on the public site is managed here. **Settings** controls the logo, SEO meta, Meta Pixel / Google Analytics snippets, contact details and social links.
 
-To learn more about Next.js, take a look at the following resources:
+## Import existing WordPress content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Scrapes the live public site (artists, art galleries, events, blog, hero sliders, logo) into MongoDB and downloads all images to disk:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run migrate --dry     # preview what will be imported (no writes)
+npm run migrate           # perform the import
+```
 
-## Deploy on Vercel
+Re-running is idempotent (upserts by slug). Spam blog posts are filtered out.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Production (VPS + NGINX)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm start
+```
+
+Point NGINX at `public/uploads` to serve media directly, e.g.:
+
+```nginx
+location /uploads/ {
+    alias /var/www/sfs_gallery/public/uploads/;
+    expires 30d;
+}
+```
+
+## Project structure
+
+```
+src/
+  app/
+    (site)/        public site (home, artists, events, about, blog, contact)
+    admin/         admin portal (login + (panel) with sidebar)
+    api/           auth, upload, contact, subscribe route handlers
+  lib/             db, auth/session, settings, upload, slug helpers
+  models/          Mongoose models
+  proxy.js         admin route gate (Next 16 "proxy" = middleware)
+scripts/
+  seed-admin.mjs   create the first admin user
+  migrate.mjs      import content from the old WordPress site
+```

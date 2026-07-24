@@ -2,25 +2,66 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1d1d1d;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* SFS Gallery palette (extracted from the live Elementor theme) */
+  --color-brand: #6ec1e4; /* accent blue */
+  --color-brand-dark: #54595f; /* secondary dark gray */
+  --color-body: #7a7a7a; /* body text gray */
+  --color-heading: #1d1d1d; /* headings / near-black */
+  --color-accent: #61ce70; /* green */
+  --color-highlight: #ffbc7d; /* warm highlight */
+  --color-line: #e6e6e6; /* hairline borders */
+
+  --font-sans: var(--font-roboto), Arial, Helvetica, sans-serif;
+  --font-heading: var(--font-scada), var(--font-roboto-slab), Georgia, serif;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-body);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+}
+
+/* Rich-text (bio / blog body / event description) rendering */
+.prose-content {
+  color: var(--color-body);
+  line-height: 1.8;
+}
+.prose-content p {
+  margin: 0 0 1.25rem;
+}
+.prose-content h1,
+.prose-content h2,
+.prose-content h3 {
+  margin: 1.75rem 0 0.75rem;
+  line-height: 1.25;
+}
+.prose-content a {
+  color: var(--color-brand-dark);
+  text-decoration: underline;
+}
+.prose-content ul,
+.prose-content ol {
+  margin: 0 0 1.25rem 1.25rem;
+  list-style: revert;
+}
+.prose-content img {
+  max-width: 100%;
+  height: auto;
 }
