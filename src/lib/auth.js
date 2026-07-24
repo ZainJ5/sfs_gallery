@@ -14,7 +14,10 @@ export async function createSession(user) {
   const store = await cookies();
   store.set(SESSION_COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    // Only mark Secure when actually served over HTTPS. Set COOKIE_SECURE=true
+    // once behind TLS; leave false for plain-HTTP (e.g. IP-only) deployments,
+    // otherwise the browser drops the session cookie and login silently fails.
+    secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE,
