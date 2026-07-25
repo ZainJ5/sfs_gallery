@@ -18,8 +18,13 @@
   --color-highlight: #ffbc7d; /* warm highlight */
   --color-line: #e6e6e6; /* hairline borders */
 
+  /* SFS Gallery brand gold/tan accent (buttons, links, arrows) */
+  --color-gold: #ab977a;
+  --color-gold-dark: #97835f;
+
   --font-sans: var(--font-roboto), Arial, Helvetica, sans-serif;
   --font-heading: var(--font-scada), var(--font-roboto-slab), Georgia, serif;
+  --font-slab: var(--font-roboto-slab), Georgia, serif;
 }
 
 body {

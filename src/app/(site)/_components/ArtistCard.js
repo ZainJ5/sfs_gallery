@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ArtistCard({ artist }) {
   return (
     <Link href={`/artists/${artist.slug}`} className="group block text-center">
-      <div className="aspect-[3/4] overflow-hidden bg-zinc-100">
+      <div className="aspect-square overflow-hidden bg-zinc-100">
         {artist.photoUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -17,7 +17,7 @@ export default function ArtistCard({ artist }) {
           </div>
         )}
       </div>
-      <h3 className="mt-3 text-sm uppercase tracking-wide text-heading transition-colors group-hover:text-brand-dark">
+      <h3 className="mt-3 text-base font-bold text-heading transition-colors group-hover:text-gold">
         {artist.name}
       </h3>
     </Link>

@@ -13,17 +13,14 @@ export default async function ArtistsPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-      <h1 className="text-center text-3xl font-semibold text-heading sm:text-4xl">
-        Our Artists
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <h1 className="mb-10 text-center text-3xl font-bold uppercase tracking-wide text-heading sm:text-4xl">
+        Artists
       </h1>
-      <p className="mx-auto mt-3 max-w-xl text-center text-body">
-        Explore the artists represented by San Francisco Street Gallery.
-      </p>
       {artists.length === 0 ? (
-        <p className="mt-12 text-center text-body">No artists to display yet.</p>
+        <p className="text-center text-body">No artists to display yet.</p>
       ) : (
-        <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3">
           {artists.map((a) => (
             <ArtistCard key={a._id} artist={a} />
           ))}

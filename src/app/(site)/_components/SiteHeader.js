@@ -22,60 +22,72 @@ export default function SiteHeader({ logoUrl, siteTitle }) {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="flex items-center">
+    <header className="bg-white">
+      {/* Centered logo lockup */}
+      <div className="px-4 pt-8 pb-3 text-center">
+        <Link href="/" className="inline-block" onClick={() => setOpen(false)}>
           {logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={siteTitle} className="h-11 w-auto" />
+            <img
+              src={logoUrl}
+              alt={siteTitle || "San Francisco Street Art Gallery"}
+              className="mx-auto h-16 w-auto sm:h-20"
+            />
           ) : (
-            <span className="text-xl font-bold tracking-[0.2em] text-heading">
+            <span className="text-2xl font-bold tracking-[0.15em] text-heading">
               SFS GALLERY
             </span>
           )}
         </Link>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          {NAV.map((i) => (
-            <Link
-              key={i.href}
-              href={i.href}
-              className={`text-sm uppercase tracking-wide transition-colors ${
-                isActive(i.href)
-                  ? "font-medium text-heading"
-                  : "text-body hover:text-heading"
-              }`}
-            >
-              {i.label}
-            </Link>
-          ))}
-        </nav>
-
-        <button
-          className="text-heading md:hidden"
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
-      {open && (
-        <nav className="border-t border-line bg-white md:hidden">
-          <div className="flex flex-col px-4 py-2">
-            {NAV.map((i) => (
+      {/* Centered desktop nav */}
+      <nav className="hidden md:block pb-5">
+        <ul className="flex items-center justify-center gap-9">
+          {NAV.map((i) => (
+            <li key={i.href}>
               <Link
-                key={i.href}
                 href={i.href}
-                onClick={() => setOpen(false)}
-                className={`py-2.5 text-sm uppercase tracking-wide ${
-                  isActive(i.href) ? "font-medium text-heading" : "text-body"
+                className={`text-sm uppercase tracking-[0.08em] transition-colors ${
+                  isActive(i.href)
+                    ? "text-gold"
+                    : "text-heading hover:text-gold"
                 }`}
               >
                 {i.label}
               </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Mobile toggle */}
+      <div className="pb-3 text-center md:hidden">
+        <button
+          onClick={() => setOpen((o) => !o)}
+          className="inline-flex items-center gap-2 text-heading"
+          aria-label="Toggle menu"
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+      {open && (
+        <nav className="border-t border-line md:hidden">
+          <ul className="flex flex-col items-center py-2">
+            {NAV.map((i) => (
+              <li key={i.href}>
+                <Link
+                  href={i.href}
+                  onClick={() => setOpen(false)}
+                  className={`block py-2.5 text-sm uppercase tracking-[0.08em] ${
+                    isActive(i.href) ? "text-gold" : "text-heading"
+                  }`}
+                >
+                  {i.label}
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </nav>
       )}
     </header>

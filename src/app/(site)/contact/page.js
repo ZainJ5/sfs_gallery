@@ -1,55 +1,20 @@
-import { MapPin, Phone, Mail } from "lucide-react";
-import { getSettings } from "@/lib/settings";
-import ContactForm from "../_components/ContactForm";
+import ContactPageForm from "../_components/ContactPageForm";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Contact" };
 
-export default async function ContactPage() {
-  const s = await getSettings();
-
+export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
-      <h1 className="text-center text-3xl font-semibold text-heading sm:text-4xl">
-        Contact Us
-      </h1>
-      <p className="mx-auto mt-3 max-w-xl text-center text-body">
-        We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon
-        as we can.
-      </p>
-
-      <div className="mt-12 grid gap-12 md:grid-cols-2">
-        <div>
-          <h2 className="text-lg font-semibold text-heading">Get in touch</h2>
-          <div className="mt-4 space-y-3 text-body">
-            {s.address && (
-              <p className="flex items-start gap-3">
-                <MapPin size={18} className="mt-0.5 shrink-0" /> {s.address}
-              </p>
-            )}
-            {s.phones?.office && (
-              <p className="flex items-center gap-3">
-                <Phone size={18} /> Office: {s.phones.office}
-              </p>
-            )}
-            {s.phones?.direct && (
-              <p className="flex items-center gap-3">
-                <Phone size={18} /> Direct: {s.phones.direct}
-              </p>
-            )}
-            {s.email && (
-              <p className="flex items-center gap-3">
-                <Mail size={18} />
-                <a href={`mailto:${s.email}`} className="hover:text-heading">
-                  {s.email}
-                </a>
-              </p>
-            )}
-          </div>
-        </div>
-
-        <div>
-          <ContactForm source="contact" />
+    <div className="bg-zinc-50">
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <h1 className="text-center text-3xl font-bold uppercase tracking-wide text-heading sm:text-4xl">
+          Contact Us
+        </h1>
+        <p className="mx-auto mt-5 max-w-2xl text-center text-body">
+          We are open 7 days a week Monday through Sunday from 10:00 AM - 06:00 PM.
+        </p>
+        <div className="mt-8 rounded-2xl bg-white p-6 shadow-lg sm:p-10">
+          <ContactPageForm />
         </div>
       </div>
     </div>

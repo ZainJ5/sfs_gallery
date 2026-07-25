@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { connectDB } from "@/lib/db";
 import Artist from "@/models/Artist";
 import Art from "@/models/Art";
 import { serialize } from "@/lib/serialize";
-import ArtistGallery from "../../_components/ArtistGallery";
+import { getSettings } from "@/lib/settings";
+import ArtworkViewer from "../../_components/ArtworkViewer";
 
 export const dynamic = "force-dynamic";
 
@@ -28,46 +28,41 @@ export default async function ArtistDetailPage({ params }) {
   const arts = serialize(
     await Art.find({ artist: artist._id, published: true }).sort({ order: 1, createdAt: 1 }).lean()
   );
-  const images = arts.flatMap((a) => (Array.isArray(a.images) ? a.images : [])).filter(Boolean);
+  const settings = await getSettings();
 
-  const all = await Artist.find({ published: true })
-    .sort({ order: 1, name: 1 })
-    .select("name slug")
-    .lean();
-  const idx = all.findIndex((x) => String(x._id) === String(artist._id));
-  const prev = idx > 0 ? all[idx - 1] : null;
-  const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null;
+  // Flatten to one entry per artwork image, carrying its title/size/medium.
+  const artworks = [];
+  for (const art of arts) {
+    const cleanTitle = art.title && !/\s[—-]\s\d+$/.test(art.title) ? art.title : "";
+    const imgs = Array.isArray(art.images) && art.images.length ? art.images : [];
+    for (const img of imgs) {
+      artworks.push({
+        image: img,
+        title: cleanTitle,
+        size: art.dimensions || "",
+        medium: art.medium || "",
+      });
+    }
+  }
 
   const a = serialize(artist);
 
   return (
-    <article className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <h1 className="text-center text-4xl font-semibold text-heading">{a.name}</h1>
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <h1 className="mb-10 text-center text-3xl font-bold uppercase tracking-wide text-heading sm:text-4xl">
+        {a.name}
+      </h1>
+      <ArtworkViewer
+        artworks={artworks}
+        artistName={a.name}
+        instagram={settings.socials?.instagram || ""}
+      />
       {a.bio && (
         <div
-          className="prose-content mx-auto mt-6 max-w-2xl text-center"
+          className="prose-content mx-auto mt-14 max-w-3xl"
           dangerouslySetInnerHTML={{ __html: a.bio }}
         />
       )}
-
-      <ArtistGallery images={images} artistName={a.name} />
-
-      <nav className="mt-16 flex items-center justify-between border-t border-line pt-6 text-sm uppercase tracking-wide">
-        {prev ? (
-          <Link href={`/artists/${prev.slug}`} className="text-body hover:text-heading">
-            ← {prev.name}
-          </Link>
-        ) : (
-          <span />
-        )}
-        {next ? (
-          <Link href={`/artists/${next.slug}`} className="text-body hover:text-heading">
-            {next.name} →
-          </Link>
-        ) : (
-          <span />
-        )}
-      </nav>
-    </article>
+    </div>
   );
 }
