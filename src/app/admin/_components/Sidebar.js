@@ -205,6 +205,9 @@ export default function Sidebar({ user }) {
         >
           <LogOut size={16} /> Sign out
         </button>
+        <p className="mt-3 px-3 text-center text-[11px] text-zinc-600">
+          Powered by Zabs Creative
+        </p>
       </div>
     </div>
   );

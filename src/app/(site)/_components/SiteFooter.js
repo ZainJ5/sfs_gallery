@@ -4,7 +4,6 @@ import NewsletterFooter from "./NewsletterFooter";
 export default function SiteFooter({ settings = {} }) {
   const socials = settings.socials || {};
   const phones = settings.phones || {};
-  const year = new Date().getFullYear();
 
   const socialLinks = [
     { href: socials.facebook, name: "facebook" },
@@ -59,9 +58,7 @@ export default function SiteFooter({ settings = {} }) {
 
       <NewsletterFooter />
 
-      <p className="mt-6 text-xs text-body">
-        Copyright © {year} Powered by Dodstech Technologies
-      </p>
+      <p className="mt-6 text-xs text-body">Powered by Zabs Creative</p>
     </footer>
   );
 }

@@ -7,7 +7,12 @@ import SocialIcon from "./SocialIcon";
 const inputCls =
   "w-full rounded-md border border-line bg-white px-3 py-2.5 text-sm text-heading placeholder:text-zinc-400 outline-none focus:border-gold focus:ring-1 focus:ring-gold";
 
-export default function ArtworkViewer({ artworks = [], artistName = "", instagram = "" }) {
+export default function ArtworkViewer({
+  artworks = [],
+  artistName = "",
+  bio = "",
+  instagram = "",
+}) {
   const [idx, setIdx] = useState(0);
   const [form, setForm] = useState({
     name: "",
@@ -63,11 +68,6 @@ export default function ArtworkViewer({ artworks = [], artistName = "", instagra
   }
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const info = [
-    ["Title", art?.title],
-    ["Size", art?.size],
-    ["Medium", art?.medium],
-  ];
 
   return (
     <div className="grid gap-10 lg:grid-cols-2">
@@ -110,18 +110,16 @@ export default function ArtworkViewer({ artworks = [], artistName = "", instagra
         )}
       </div>
 
-      {/* Info + inquiry */}
+      {/* Artist info + inquiry */}
       <div>
-        <div className="space-y-1.5">
-          {info.map(([label, val]) => (
-            <p key={label} className="font-slab text-lg font-bold text-heading">
-              {label}
-              {val ? <span className="font-normal text-body">: {val}</span> : null}
-            </p>
-          ))}
-        </div>
+        {bio ? (
+          <div
+            className="prose-content mb-8"
+            dangerouslySetInnerHTML={{ __html: bio }}
+          />
+        ) : null}
 
-        <h3 className="mt-6 font-slab text-lg font-bold text-heading">Inquiry Form:</h3>
+        <h3 className="font-slab text-lg font-bold text-heading">Inquiry Form:</h3>
         {status === "ok" ? (
           <div className="mt-3 rounded-md border border-green-200 bg-green-50 px-4 py-6 text-sm text-green-700">
             Thank you — your inquiry has been sent.

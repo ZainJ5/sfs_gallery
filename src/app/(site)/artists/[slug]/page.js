@@ -55,14 +55,9 @@ export default async function ArtistDetailPage({ params }) {
       <ArtworkViewer
         artworks={artworks}
         artistName={a.name}
+        bio={a.bio || ""}
         instagram={settings.socials?.instagram || ""}
       />
-      {a.bio && (
-        <div
-          className="prose-content mx-auto mt-14 max-w-3xl"
-          dangerouslySetInnerHTML={{ __html: a.bio }}
-        />
-      )}
     </div>
   );
 }
