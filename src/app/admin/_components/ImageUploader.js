@@ -38,15 +38,15 @@ export default function ImageUploader({ name, defaultValue = "", subdir = "" }) 
           <img
             src={url}
             alt="Preview"
-            className="h-40 w-40 rounded-md border border-line object-cover"
+            className="max-h-72 w-auto max-w-full rounded-md border border-line object-contain"
           />
           <button
             type="button"
             onClick={() => setUrl("")}
-            className="absolute -right-2 -top-2 rounded-full bg-heading p-1 text-white shadow hover:bg-red-600"
+            className="absolute right-2 top-2 rounded-full bg-heading p-1.5 text-white shadow hover:bg-red-600"
             title="Remove"
           >
-            <X size={14} />
+            <X size={16} />
           </button>
         </div>
       ) : (
@@ -62,14 +62,19 @@ export default function ImageUploader({ name, defaultValue = "", subdir = "" }) 
             setDragOver(false);
             upload(e.dataTransfer.files?.[0]);
           }}
-          className={`flex h-40 w-40 cursor-pointer flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed text-center text-xs transition-colors ${
-            dragOver ? "border-brand bg-brand/5" : "border-line hover:border-brand"
+          className={`flex min-h-[220px] w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed p-6 text-center transition-colors ${
+            dragOver ? "border-brand bg-brand/5" : "border-line hover:border-brand hover:bg-zinc-50"
           }`}
         >
-          <UploadCloud size={22} className="text-zinc-400" />
-          <span className="text-body">
-            {uploading ? "Uploading…" : "Click or drop image"}
-          </span>
+          <UploadCloud size={44} className="text-zinc-400" />
+          <div>
+            <p className="text-sm font-medium text-heading">
+              {uploading ? "Uploading…" : "Click to upload or drag & drop"}
+            </p>
+            <p className="mt-1 text-xs text-body">
+              JPG, PNG, WEBP, AVIF, GIF or SVG · automatically optimized
+            </p>
+          </div>
         </div>
       )}
       <input
