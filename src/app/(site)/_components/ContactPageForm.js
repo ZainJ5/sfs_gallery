@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getRecaptchaToken } from "@/lib/recaptcha-client";
 
 const inputCls =
   "w-full rounded-md border border-line bg-white px-3 py-2.5 text-sm text-heading placeholder:italic placeholder:text-zinc-400 outline-none focus:border-gold focus:ring-1 focus:ring-gold";
@@ -24,6 +25,7 @@ export default function ContactPageForm() {
     setStatus("loading");
     setError("");
     try {
+      const recaptchaToken = await getRecaptchaToken("contact");
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,6 +35,7 @@ export default function ContactPageForm() {
           phone: f.phone,
           message: f.message,
           source: "contact",
+          recaptchaToken,
         }),
       });
       const d = await res.json().catch(() => ({}));

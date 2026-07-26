@@ -31,7 +31,7 @@ export default function SiteHeader({ logoUrl, siteTitle }) {
             <img
               src={logoUrl}
               alt={siteTitle || "San Francisco Street Art Gallery"}
-              className="mx-auto h-16 w-auto sm:h-20"
+              className="mx-auto h-[72px] w-auto sm:h-[100px]"
             />
           ) : (
             <span className="text-2xl font-bold tracking-[0.15em] text-heading">

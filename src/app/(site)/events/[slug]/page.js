@@ -2,18 +2,9 @@ import { notFound } from "next/navigation";
 import { connectDB } from "@/lib/db";
 import Event from "@/models/Event";
 import { serialize } from "@/lib/serialize";
-import ArtistGallery from "../../_components/ArtistGallery";
+import InquireButton from "../../_components/InquireButton";
 
 export const dynamic = "force-dynamic";
-
-function fmtDate(d) {
-  if (!d) return "";
-  return new Date(d).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -30,27 +21,36 @@ export default async function EventDetailPage({ params }) {
   if (!doc) notFound();
   const e = serialize(doc);
 
+  const images = [...new Set([e.coverUrl, ...(e.gallery || [])].filter(Boolean))];
+
   return (
-    <article className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <h1 className="text-center text-4xl font-semibold text-heading">{e.title}</h1>
-      <p className="mt-3 text-center text-body">
-        {[fmtDate(e.date), e.location].filter(Boolean).join(" · ")}
-      </p>
-      {e.coverUrl && (
-        <div className="mt-8 overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={e.coverUrl} alt={e.title} className="w-full object-cover" />
-        </div>
-      )}
+    <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+      <h1 className="text-center text-3xl font-bold uppercase text-heading sm:text-4xl">
+        {e.title}
+      </h1>
+
       {e.description && (
         <div
-          className="prose-content mx-auto mt-8 max-w-2xl"
+          className="prose-content mt-8 text-justify"
           dangerouslySetInnerHTML={{ __html: e.description }}
         />
       )}
-      {Array.isArray(e.gallery) && e.gallery.length > 0 && (
-        <ArtistGallery images={e.gallery} showInquire={false} />
+
+      {images.length > 0 && (
+        <div className="mt-8 space-y-6">
+          {images.map((img, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={i}
+              src={img}
+              alt={e.title}
+              className="mx-auto w-full object-contain"
+            />
+          ))}
+        </div>
       )}
+
+      <InquireButton subject={e.title} />
     </article>
   );
 }

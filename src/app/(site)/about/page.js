@@ -26,7 +26,7 @@ const TEAM = [
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <h1 className="mb-8 text-center text-3xl font-bold uppercase tracking-wide text-heading sm:text-4xl">
         About Us
       </h1>
