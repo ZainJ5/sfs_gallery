@@ -15,7 +15,14 @@
 
 # next.js
 /.next/
+/.next.bak/
 /out/
+
+# deploy artifacts (server only)
+.deploy-lockhash
+/build.log
+/deploy.log
+/postbuild.sh
 
 # production
 /build
