@@ -29,6 +29,8 @@ export default async function EventsPage() {
                   <img
                     src={e.coverUrl}
                     alt={e.title}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (

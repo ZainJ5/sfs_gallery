@@ -64,6 +64,8 @@ export default async function ArtistPage({ params }) {
                 <img
                   src={art.images[0]}
                   alt={art.title || a.name}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               ) : (

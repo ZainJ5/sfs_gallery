@@ -55,6 +55,8 @@ export default async function BlogPage() {
                   <img
                     src={p.coverUrl}
                     alt={p.title}
+                    loading="lazy"
+                    decoding="async"
                     className="mx-auto max-h-[480px] w-full object-cover"
                   />
                 </Link>

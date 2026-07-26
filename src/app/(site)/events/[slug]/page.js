@@ -44,6 +44,8 @@ export default async function EventDetailPage({ params }) {
               key={i}
               src={img}
               alt={e.title}
+              loading="lazy"
+              decoding="async"
               className="mx-auto w-full object-contain"
             />
           ))}
