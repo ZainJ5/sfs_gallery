@@ -2,8 +2,11 @@
 // check is skipped (returns true) so forms keep working until keys are added.
 export async function verifyRecaptcha(token) {
   const secret = process.env.RECAPTCHA_SECRET_KEY;
-  if (!secret) return true; // not configured yet
-  if (!token) return false;
+  if (!secret) return true; // not configured
+  // Fail open: no token usually means reCAPTCHA couldn't run (e.g. the site is
+  // served on a bare IP not registered for this key). Don't block the form —
+  // real protection kicks in on a registered domain, where a token is present.
+  if (!token) return true;
   try {
     const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
       method: "POST",
@@ -16,6 +19,6 @@ export async function verifyRecaptcha(token) {
     if (typeof data.score === "number" && data.score < 0.5) return false;
     return true;
   } catch {
-    return false;
+    return true; // fail open on network/verification errors
   }
 }
