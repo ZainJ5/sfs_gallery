@@ -17,7 +17,7 @@ export default function SettingsForm({ action, initial = {} }) {
   const phones = initial.phones || {};
 
   return (
-    <form action={formAction} className="max-w-3xl space-y-6">
+    <form action={formAction} className="space-y-6">
       <FormError>{state?.error}</FormError>
       {state?.ok && (
         <div className="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">

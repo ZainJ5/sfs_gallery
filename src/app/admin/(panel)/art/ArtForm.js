@@ -18,7 +18,7 @@ export default function ArtForm({ action, initial = {}, artists = [] }) {
   const [state, formAction] = useActionState(action, {});
 
   return (
-    <form action={formAction} className="max-w-3xl space-y-6">
+    <form action={formAction} className="space-y-6">
       <FormError>{state?.error}</FormError>
 
       <Card>

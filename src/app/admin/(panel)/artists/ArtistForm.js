@@ -12,7 +12,7 @@ export default function ArtistForm({ action, initial = {} }) {
   const s = initial.socials || {};
 
   return (
-    <form action={formAction} className="max-w-3xl space-y-6">
+    <form action={formAction} className="space-y-6">
       <FormError>{state?.error}</FormError>
 
       <Card>

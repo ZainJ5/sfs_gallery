@@ -37,10 +37,9 @@ export default async function ArtworkPage({ params }) {
   const settings = await getSettings();
   const a = serialize(artist);
 
-  // Suppress the auto-generated "<name> — N" titles from migration.
-  const cleanTitle = art.title && !/\s[—-]\s\d+$/.test(art.title) ? art.title : "";
+  const title = art.title || "";
   const info = [
-    ["Title", cleanTitle],
+    ["Title", title],
     ["Size", art.dimensions],
     ["Medium", art.medium],
   ];
@@ -58,7 +57,7 @@ export default async function ArtworkPage({ params }) {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={art.images[0]}
-                alt={cleanTitle || a.name}
+                alt={title || a.name}
                 className="max-h-[70vh] w-full object-contain"
               />
             ) : (
@@ -101,7 +100,7 @@ export default async function ArtworkPage({ params }) {
           </div>
 
           <h3 className="mt-6 font-slab text-lg font-bold text-heading">Inquiry Form:</h3>
-          <InquiryForm artistName={a.name} artworkTitle={cleanTitle} />
+          <InquiryForm artistName={a.name} artworkTitle={title} />
           <ShareButtons artistName={a.name} instagram={settings.socials?.instagram || ""} />
         </div>
       </div>
