@@ -23,6 +23,7 @@
 /build.log
 /deploy.log
 /postbuild.sh
+/auto-deploy.log
 
 # production
 /build
