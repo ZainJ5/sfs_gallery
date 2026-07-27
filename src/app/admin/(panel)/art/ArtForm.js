@@ -55,6 +55,9 @@ export default function ArtForm({ action, initial = {}, artists = [] }) {
           <Field label="Sort order">
             <Input type="number" name="order" defaultValue={initial.order ?? 0} />
           </Field>
+          <Field label="Price">
+            <Input name="price" defaultValue={initial.price || ""} placeholder="$1,200" />
+          </Field>
         </div>
 
         <div className="mt-4">
@@ -66,12 +69,6 @@ export default function ArtForm({ action, initial = {}, artists = [] }) {
         <div className="mt-4 flex items-center gap-8">
           <Toggle name="featured" defaultChecked={initial.featured ?? false} label="Featured" />
           <Toggle name="published" defaultChecked={initial.published ?? true} label="Published" />
-        </div>
-
-        <div className="mt-4 max-w-xs">
-          <Field label="Price">
-            <Input name="price" defaultValue={initial.price || ""} placeholder="$1,200" />
-          </Field>
         </div>
       </Card>
 
