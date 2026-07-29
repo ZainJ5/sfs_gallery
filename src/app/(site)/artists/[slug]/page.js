@@ -51,6 +51,31 @@ export default async function ArtistPage({ params }) {
         />
       )}
 
+      <div className="mb-10 flex justify-center">
+        <a
+          href={`/artists/${a.slug}/download`}
+          className="inline-flex items-center gap-2 rounded-full border border-gold px-6 py-2.5 text-sm font-medium uppercase tracking-wide text-gold transition-colors hover:bg-gold hover:text-white"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          Download artist info (PDF)
+        </a>
+      </div>
+
       {arts.length > 0 && (
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
           {arts.map((art) => (

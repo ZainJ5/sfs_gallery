@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // sharp is a native module — keep it external so it's required at runtime, not bundled.
-  serverExternalPackages: ["sharp"],
+  // sharp is a native module and pdfkit ships .afm font files it loads from disk —
+  // keep both external so they're required at runtime, not bundled.
+  serverExternalPackages: ["sharp", "pdfkit"],
   images: {
     // Locally uploaded media, served from /public/uploads (Next in dev, NGINX in prod).
     localPatterns: [{ pathname: "/uploads/**" }],
