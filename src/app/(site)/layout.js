@@ -14,7 +14,8 @@ export async function generateMetadata() {
     title: { default: s.siteTitle, template: `%s | ${s.siteTitle}` },
     description: s.metaDescription || undefined,
     keywords: s.metaKeywords || undefined,
-    icons: s.logoUrl ? { icon: s.logoUrl } : undefined,
+    // Favicon comes from the file-convention icons in src/app/ (favicon.ico,
+    // icon.png, apple-icon.png — the SFS emblem), not the full wide logo.
     openGraph: {
       title: s.siteTitle,
       description: s.metaDescription || undefined,
