@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Memory-safe production deploy for sfs_gallery on the shared 3.8GB VPS.
-# Invoked by the GitHub Actions workflow (after it runs `git pull`).
+# Invoked by scripts/auto-deploy-poll.sh (the server-side git-poll cron).
 set -uo pipefail
 cd /var/www/sfs_gallery
 
@@ -52,7 +52,9 @@ fi
 pm2 save >/dev/null 2>&1
 
 sleep 8
-CODE="$(curl -s -o /dev/null -w '%{http_code}' -H 'Host: 76.13.17.93' http://127.0.0.1/ || echo 000)"
-echo "[deploy] home HTTP $CODE"
+# Hit the Next app directly, bypassing NGINX — so the HTTP→HTTPS redirect that
+# certbot adds can never make a healthy app look like a 301 failure.
+CODE="$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3007/ || echo 000)"
+echo "[deploy] app HTTP $CODE"
 echo "[deploy] finished $(date -u)"
 exit $STATUS

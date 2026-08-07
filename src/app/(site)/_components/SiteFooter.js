@@ -36,7 +36,6 @@ export default function SiteFooter({ settings = {} }) {
             </a>{" "}
           </>
         )}
-        <span className="font-semibold text-heading">W:</span> www.sfsgallery.com
       </p>
 
       {socialLinks.length > 0 && (
@@ -57,8 +56,6 @@ export default function SiteFooter({ settings = {} }) {
       )}
 
       <NewsletterFooter />
-
-      <p className="mt-6 text-xs text-body">Powered by Zabs Creative</p>
     </footer>
   );
 }

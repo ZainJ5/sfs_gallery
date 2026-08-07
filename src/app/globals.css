@@ -47,6 +47,7 @@ h6 {
 .prose-content {
   color: var(--color-body);
   line-height: 1.8;
+  text-align: justify;
 }
 .prose-content p {
   margin: 0 0 1.25rem;
