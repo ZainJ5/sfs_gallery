@@ -106,7 +106,7 @@ export default async function BlogPage({ searchParams }) {
                     </Link>
                   )}
                   {p.excerpt && (
-                    <p className="mx-auto mt-5 max-w-2xl leading-8 text-body">
+                    <p className="mx-auto mt-5 max-w-2xl text-justify leading-8 text-body">
                       {p.excerpt}
                     </p>
                   )}

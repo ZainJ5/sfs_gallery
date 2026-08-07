@@ -11,7 +11,7 @@ export default function SiteFooter({ settings = {} }) {
   ].filter((s) => s.href);
 
   return (
-    <footer className="mt-12 bg-white pb-12 pt-6 text-center">
+    <footer className="mt-6 bg-white pb-12 pt-6 text-center sm:mt-12">
       <h3 className="text-lg font-bold text-heading">San Francisco Street Gallery</h3>
       {settings.address && (
         <p className="mt-1.5 text-sm text-body">{settings.address}</p>

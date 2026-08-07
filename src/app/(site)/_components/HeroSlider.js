@@ -106,7 +106,7 @@ export default function HeroSlider({ slides = [] }) {
       </div>
 
       {slides.length > 1 && (
-        <div className="flex justify-center gap-2 py-5">
+        <div className="flex justify-center gap-2 py-3 sm:py-5">
           {snaps.map((_, i) => (
             <button
               key={i}

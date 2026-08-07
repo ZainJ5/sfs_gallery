@@ -12,7 +12,7 @@ export default function InquireButton({ subject = "", label = "Inquire" }) {
       <div className="mt-10 text-center">
         <button
           onClick={() => setOpen(true)}
-          className="border border-heading px-10 py-3.5 text-base uppercase italic tracking-[2px] text-heading transition-colors hover:bg-heading hover:text-white"
+          className="border border-heading px-10 py-3.5 text-base uppercase tracking-[2px] text-heading transition-colors hover:bg-heading hover:text-white"
         >
           {label}
         </button>

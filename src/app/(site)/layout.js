@@ -30,7 +30,9 @@ export default async function SiteLayout({ children }) {
   return (
     <>
       <SiteHeader logoUrl={settings.logoUrl} siteTitle={settings.siteTitle} />
-      <main className="flex-1">{children}</main>
+      {/* flex-1 only from sm up: on phones it would stretch the short homepage,
+          pushing the footer far below the slider. */}
+      <main className="sm:flex-1">{children}</main>
       <SiteFooter settings={settings} />
       <HeadScripts pixelCode={settings.pixelCode} gaCode={settings.gaCode} />
       {RECAPTCHA_SITE_KEY && (

@@ -15,7 +15,7 @@ export default function AboutPage() {
         About Us
       </h1>
 
-      <div className="space-y-5 leading-8 text-body">
+      <div className="space-y-5 text-justify leading-8 text-body">
         <p>
           San Francisco Street Gallery is a prominent art gallery located on Santa Fe
           Plaza in the historic art city of Santa Fe, New Mexico. We showcase a diverse
