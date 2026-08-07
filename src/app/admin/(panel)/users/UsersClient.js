@@ -79,6 +79,7 @@ export default function UsersClient({
       {tab === "admins" ? (
         <div className="grid gap-6 lg:grid-cols-[1fr,340px]">
           <Card className="p-0">
+            <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-line text-xs uppercase tracking-wide text-body">
@@ -109,6 +110,7 @@ export default function UsersClient({
                 ))}
               </tbody>
             </table>
+            </div>
           </Card>
 
           <Card>
@@ -153,6 +155,7 @@ export default function UsersClient({
               <Download size={14} /> Export CSV
             </button>
           </div>
+          <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-line text-xs uppercase tracking-wide text-body">
@@ -189,6 +192,7 @@ export default function UsersClient({
               )}
             </tbody>
           </table>
+          </div>
         </Card>
       )}
     </div>

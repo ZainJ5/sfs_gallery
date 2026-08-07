@@ -74,13 +74,13 @@ export default function MessagesList({ messages, setRead, deleteMessage }) {
         {selected ? (
           <div>
             <div className="mb-4 flex items-start justify-between gap-3">
-              <div>
+              <div className="min-w-0">
                 <h2 className="text-lg font-semibold text-heading">
                   {selected.subject || "(no subject)"}
                 </h2>
-                <p className="mt-1 text-sm text-body">
+                <p className="mt-1 wrap-break-word text-sm text-body">
                   From <span className="font-medium text-heading">{selected.name}</span> ·{" "}
-                  <a href={`mailto:${selected.email}`} className="text-brand-dark hover:underline">
+                  <a href={`mailto:${selected.email}`} className="break-all text-brand-dark hover:underline">
                     {selected.email}
                   </a>
                 </p>
@@ -102,7 +102,7 @@ export default function MessagesList({ messages, setRead, deleteMessage }) {
                 <Trash2 size={14} /> Delete
               </button>
             </div>
-            <div className="whitespace-pre-wrap border-t border-line pt-4 text-sm leading-relaxed text-heading">
+            <div className="whitespace-pre-wrap wrap-break-word border-t border-line pt-4 text-sm leading-relaxed text-heading">
               {selected.body}
             </div>
           </div>
