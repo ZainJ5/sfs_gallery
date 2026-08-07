@@ -92,7 +92,7 @@ export default async function ArtworkPage({ params }) {
         <div>
           <div className="space-y-1.5">
             {info.map(([label, val]) => (
-              <p key={label} className="font-slab text-lg font-bold text-heading">
+              <p key={label} className="text-lg font-bold text-heading">
                 {label}
                 {val ? <span className="font-normal text-body">: {val}</span> : null}
               </p>

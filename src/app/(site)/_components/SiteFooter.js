@@ -47,7 +47,7 @@ export default function SiteFooter({ settings = {} }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={name}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-heading text-white transition-colors hover:bg-gold"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-300 text-heading transition-colors hover:border-gold hover:text-gold"
             >
               <SocialIcon name={name} size={16} />
             </a>
