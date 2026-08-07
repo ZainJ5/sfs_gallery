@@ -2,26 +2,10 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "About Us" };
 
 const TEAM = [
-  {
-    name: "Yasir Aijaz",
-    role: "Managing Director",
-    photo: "https://sfsgallery.com/wp-content/uploads/2026/06/yasri.jpg",
-  },
-  {
-    name: "Shield Dux",
-    role: "Gallery Manager",
-    photo: "https://sfsgallery.com/wp-content/uploads/2026/06/shield.jpg",
-  },
-  {
-    name: "Mark Malinowski",
-    role: "Fine Art Sales Specialist",
-    photo: "https://sfsgallery.com/wp-content/uploads/2026/06/mark.jpg",
-  },
-  {
-    name: "Carrie Glassmeyer",
-    role: "Fine Art Sales Specialist",
-    photo: "https://sfsgallery.com/wp-content/uploads/2026/06/carrie.jpg",
-  },
+  { name: "Yasir Aijaz", role: "Managing Director", photo: "/team/yasri.jpg" },
+  { name: "Shield Dux", role: "Gallery Manager", photo: "/team/shield.jpg" },
+  { name: "Mark Malinowski", role: "Fine Art Sales Specialist", photo: "/team/mark.jpg" },
+  { name: "Carrie Glassmeyer", role: "Fine Art Sales Specialist", photo: "/team/carrie.jpg" },
 ];
 
 export default function AboutPage() {
