@@ -29,13 +29,6 @@ export default async function EventDetailPage({ params }) {
         {e.title}
       </h1>
 
-      {e.description && (
-        <div
-          className="prose-content mt-8 text-justify"
-          dangerouslySetInnerHTML={{ __html: e.description }}
-        />
-      )}
-
       {images.length > 0 && (
         <div className="mt-8 space-y-6">
           {images.map((img, i) => (
@@ -50,6 +43,13 @@ export default async function EventDetailPage({ params }) {
             />
           ))}
         </div>
+      )}
+
+      {e.description && (
+        <div
+          className="prose-content mt-8 text-justify"
+          dangerouslySetInnerHTML={{ __html: e.description }}
+        />
       )}
 
       <InquireButton subject={e.title} />
