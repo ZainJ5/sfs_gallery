@@ -3,6 +3,13 @@ const nextConfig = {
   // sharp is a native module and pdfkit ships .afm font files it loads from disk —
   // keep both external so they're required at runtime, not bundled.
   serverExternalPackages: ["sharp", "pdfkit"],
+  async redirects() {
+    return [
+      // Old WordPress entry point. Printed QR codes point at /index.php, so send
+      // it to the homepage permanently (308) — no need to reprint the QR codes.
+      { source: "/index.php", destination: "/", permanent: true },
+    ];
+  },
   images: {
     // Locally uploaded media, served from /public/uploads (Next in dev, NGINX in prod).
     localPatterns: [{ pathname: "/uploads/**" }],
