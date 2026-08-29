@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Plus, Images } from "lucide-react";
 import { connectDB } from "@/lib/db";
 import Art from "@/models/Art";
 import { serialize } from "@/lib/serialize";
@@ -27,9 +27,14 @@ export default async function ArtListPage() {
         title="All Arts"
         subtitle={`${rows.length} artwork${rows.length === 1 ? "" : "s"}`}
         action={
-          <ButtonLink href="/admin/art/new">
-            <Plus size={16} /> Add Art
-          </ButtonLink>
+          <div className="flex flex-wrap gap-2">
+            <ButtonLink href="/admin/art/bulk" variant="outline">
+              <Images size={16} /> Bulk Add
+            </ButtonLink>
+            <ButtonLink href="/admin/art/new">
+              <Plus size={16} /> Add Art
+            </ButtonLink>
+          </div>
         }
       />
       <DataTable

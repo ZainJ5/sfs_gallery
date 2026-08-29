@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Share2 } from "lucide-react";
+import Link from "next/link";
+import { Mail, Share2, ArrowLeft } from "lucide-react";
 import SocialIcon from "./SocialIcon";
 
-export default function ShareButtons({ artistName = "", instagram = "" }) {
+export default function ShareButtons({ artistName = "", instagram = "", backHref = "" }) {
   const [copied, setCopied] = useState(false);
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
@@ -58,6 +59,16 @@ export default function ShareButtons({ artistName = "", instagram = "" }) {
         <Share2 size={18} />
       </button>
       {copied && <span className="text-xs text-green-600">Copied!</span>}
+      {backHref && (
+        <Link
+          href={backHref}
+          aria-label="Back to artist page"
+          title="Back to artist page"
+          className="ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-gold text-gold transition-colors hover:bg-gold hover:text-white"
+        >
+          <ArrowLeft size={16} />
+        </Link>
+      )}
     </div>
   );
 }

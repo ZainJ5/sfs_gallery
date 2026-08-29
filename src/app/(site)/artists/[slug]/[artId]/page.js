@@ -47,7 +47,9 @@ export default async function ArtworkPage({ params }) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <h1 className="mb-10 text-center text-3xl font-bold uppercase tracking-wide text-heading sm:text-4xl">
-        {a.name}
+        <Link href={`/artists/${a.slug}`} className="transition-colors hover:text-gold">
+          {a.name}
+        </Link>
       </h1>
 
       <div className="grid gap-10 lg:grid-cols-2">
@@ -101,7 +103,11 @@ export default async function ArtworkPage({ params }) {
 
           <h3 className="mt-6 font-slab text-lg font-bold text-heading">Inquiry Form:</h3>
           <InquiryForm artistName={a.name} artworkTitle={title} />
-          <ShareButtons artistName={a.name} instagram={settings.socials?.instagram || ""} />
+          <ShareButtons
+            artistName={a.name}
+            instagram={settings.socials?.instagram || ""}
+            backHref={`/artists/${a.slug}`}
+          />
         </div>
       </div>
 

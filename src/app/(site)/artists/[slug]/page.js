@@ -46,7 +46,7 @@ export default async function ArtistPage({ params }) {
 
       {a.bio && (
         <div
-          className="prose-content mx-auto mb-10 max-w-4xl"
+          className="prose-content mb-10"
           dangerouslySetInnerHTML={{ __html: a.bio }}
         />
       )}

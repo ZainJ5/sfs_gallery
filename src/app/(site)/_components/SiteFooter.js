@@ -26,6 +26,7 @@ export default function SiteFooter({ settings = {} }) {
         {phones.direct && (
           <>
             <span className="font-semibold text-heading">D:</span> {phones.direct}{" "}
+            |{" "}
           </>
         )}
         {settings.email && (

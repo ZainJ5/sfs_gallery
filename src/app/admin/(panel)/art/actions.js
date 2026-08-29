@@ -71,6 +71,48 @@ export async function updateArt(id, prevState, formData) {
   redirect("/admin/art");
 }
 
+// Create many artworks at once — one Art document per uploaded image, each with
+// its own details, all assigned to the same (optional) artist.
+export async function createArtBulk({ artist = null, items = [] } = {}) {
+  await requireAuth();
+  const valid = (Array.isArray(items) ? items : []).filter(
+    (it) => it && it.image && String(it.title || "").trim()
+  );
+  if (valid.length === 0) {
+    return { error: "Add at least one image, and give every image a title." };
+  }
+  try {
+    await connectDB();
+    let artistId = artist || null;
+    let artistName = "";
+    if (artistId) {
+      const a = await Artist.findById(artistId).select("name").lean();
+      if (a) artistName = a.name;
+      else artistId = null;
+    }
+    const docs = valid.map((it) => ({
+      title: String(it.title).trim(),
+      slug: slugify(it.title),
+      artist: artistId,
+      artistName,
+      images: [String(it.image)],
+      price: String(it.price || "").trim(),
+      medium: String(it.medium || "").trim(),
+      dimensions: String(it.dimensions || "").trim(),
+      description: "",
+      featured: false,
+      order: 0,
+      published: it.published !== false,
+    }));
+    await Art.insertMany(docs);
+  } catch (err) {
+    return { error: err.message || "Could not create the artworks." };
+  }
+  revalidatePath("/admin/art");
+  revalidatePath("/artists");
+  return { ok: true, count: valid.length };
+}
+
 export async function deleteArt(id) {
   await requireAuth();
   await connectDB();
