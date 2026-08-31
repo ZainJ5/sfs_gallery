@@ -30,8 +30,13 @@ function parse(formData) {
     date: dateStr ? new Date(dateStr) : null,
     location: String(formData.get("location") || "").trim(),
     coverUrl: String(formData.get("coverUrl") || "").trim(),
+    thumbnailUrl: String(formData.get("thumbnailUrl") || "").trim(),
     description: String(formData.get("description") || ""),
     gallery: formData.getAll("gallery").map(String).filter(Boolean),
+    videos: String(formData.get("videos") || "")
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .filter(Boolean),
     published: formData.get("published") === "true",
     department: "events",
   };

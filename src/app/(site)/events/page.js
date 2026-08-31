@@ -24,10 +24,10 @@ export default async function EventsPage() {
           {events.map((e) => (
             <Link key={e._id} href={`/events/${e.slug}`} className="group block">
               <div className="aspect-[4/3] overflow-hidden bg-zinc-200">
-                {e.coverUrl ? (
+                {e.thumbnailUrl || e.coverUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={e.coverUrl}
+                    src={e.thumbnailUrl || e.coverUrl}
                     alt={e.title}
                     loading="lazy"
                     decoding="async"

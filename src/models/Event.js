@@ -7,8 +7,10 @@ const EventSchema = new mongoose.Schema(
     date: { type: Date },
     location: { type: String, default: "" },
     coverUrl: { type: String, default: "" },
+    thumbnailUrl: { type: String, default: "" }, // pre-cropped image for the events grid
     description: { type: String, default: "" }, // HTML
     gallery: { type: [String], default: [] },
+    videos: { type: [String], default: [] }, // YouTube links, embedded on the event page
     department: { type: String, default: "events" },
     published: { type: Boolean, default: true },
     wpSlug: { type: String, default: "" },

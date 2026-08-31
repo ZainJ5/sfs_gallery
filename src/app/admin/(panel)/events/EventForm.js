@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { Card } from "@/app/admin/_components/kit";
-import { Field, Input, Toggle, SubmitButton, FormError } from "@/app/admin/_components/form";
+import { Field, Input, Textarea, Toggle, SubmitButton, FormError } from "@/app/admin/_components/form";
 import ImageUploader from "@/app/admin/_components/ImageUploader";
 import MultiImageUploader from "@/app/admin/_components/MultiImageUploader";
 import RichTextEditor from "@/app/admin/_components/RichTextEditor";
@@ -26,9 +26,14 @@ export default function EventForm({ action, initial = {} }) {
 
       <Card>
         <div className="grid gap-6 sm:grid-cols-[auto,1fr]">
-          <Field label="Cover image">
-            <ImageUploader name="coverUrl" defaultValue={initial.coverUrl || ""} subdir="events" />
-          </Field>
+          <div className="space-y-4">
+            <Field label="Cover / full image" hint="Shown full size on the event page.">
+              <ImageUploader name="coverUrl" defaultValue={initial.coverUrl || ""} subdir="events" />
+            </Field>
+            <Field label="Thumbnail" hint="Cropped image for the Events grid. Optional — falls back to the cover.">
+              <ImageUploader name="thumbnailUrl" defaultValue={initial.thumbnailUrl || ""} subdir="events" />
+            </Field>
+          </div>
           <div className="space-y-4">
             <Field label="Title" required>
               <Input name="title" defaultValue={initial.title || ""} required />
@@ -58,6 +63,19 @@ export default function EventForm({ action, initial = {} }) {
       <Card>
         <Field label="Photo gallery">
           <MultiImageUploader name="gallery" defaultValue={initial.gallery || []} subdir="events" />
+        </Field>
+      </Card>
+
+      <Card>
+        <Field
+          label="YouTube videos"
+          hint="One link per line (youtube.com/watch?v=… or youtu.be/…). Embedded on the event page."
+        >
+          <Textarea
+            name="videos"
+            defaultValue={(initial.videos || []).join("\n")}
+            placeholder="https://www.youtube.com/watch?v=..."
+          />
         </Field>
       </Card>
 
